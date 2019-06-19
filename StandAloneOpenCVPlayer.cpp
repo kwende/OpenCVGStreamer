@@ -70,20 +70,20 @@ static void OnNewPad(GstElement* element, GstPad* pad, gpointer data)
 		g_object_set(context->appsink,
 			"emit-signals", TRUE, NULL); 
 
-		g_object_set(context->appsink,
-			"sync", FALSE,
-			"enable-last-sample", FALSE,
-			"emit-signals", TRUE,
-			"qos", FALSE,
-			"max-buffers", 1,
-			"async", FALSE,
-			"drop", FALSE, NULL);
+		//g_object_set(context->appsink,
+		//	"sync", FALSE,
+		//	"enable-last-sample", FALSE,
+		//	"emit-signals", TRUE,
+		//	"qos", FALSE,
+		//	"max-buffers", 1,
+		//	"async", FALSE,
+		//	"drop", FALSE, NULL);
 	}
 }
 
 int main()
 {
-	const char* RTSPURL = "rtsp://address/live"; 
+	const char* RTSPURL = "rtsp://<replaceme>"; 
 
 	gst_init(NULL, NULL); 
 
@@ -98,7 +98,7 @@ int main()
 
 	context->depay = ::gst_element_factory_make("rtph264depay", "rtph264depay");
 	context->parse = ::gst_element_factory_make("h264parse", "h264parse");
-	context->decode = ::gst_element_factory_make("mfxh264dec", "mfxh264dec");
+	context->decode = ::gst_element_factory_make("avdec_h264", "avdec_h264");
 	context->appsink = ::gst_element_factory_make("appsink", "appsink");
 
 	::gst_bin_add_many(GST_BIN(context->pipeline),
